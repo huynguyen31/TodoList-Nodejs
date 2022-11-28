@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/main.css">
+    <title> Document </title>
+</head>
+
+<script>
+    async function handleDelete(e){
+        alert('Are you sure ???')
+        try {
+            fetch('/delete/'+e.target.id, {
+                method: 'POST',
+            }).catch(error =>{console.log(error)});
+            location.reload('/');
+        } catch (error) {
+            console.log('ERROR: ' + error);
+        }
+    }
+
+    async function handleUpdate(e){
+        window.location.href = "update/"+e.target.id;
+    }
+</script>
+
+<body>
+    <header>
+        <h1>Task List</h1>
+        <form method="POST" id="new-task-form" action="/new">
+            <input name="task" type="text" id="task-input" placeholder="New planned?">
+            <input type="submit" name="" id="task-submit" value="New Task">
+        </form>
+    </header>
+    <main>
+        <section class="task-list">
+            <h2 class="h2-tasks">Tasks</h2>
+            <h2 class="h2-status">Status</h2>
+            <h2 class="h2-option">Option</h2>
+            <div id="tasks">
+                <% data.forEach(p=> {%>
+                    <div class="task">
+                        <div class="content">
+                            <input type="text" class="text" readonly value='<%= p.task %>'>
+                        </div>
+                        <!-- <div class="status">
+                            <input type="text" class="text" readonly value='<%= p.status %>'>
+                        </div> -->
+                        <div class="actions">
+                            <button id='<%= p._id %>' class="edit" onclick="handleUpdate(event)">Edit</button>
+                            <form action="/delete/<%= p._id %>" method="POST">
+                                <button class="delete" type="submit">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                <%})%>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>

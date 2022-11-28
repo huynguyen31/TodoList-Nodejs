@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/main.css">
+    <title> Document </title>
+</head>
+
+<!-- <script>
+    async function handleDelete(e){
+        alert('Are you sure ???')
+        try {
+            fetch('/delete/'+e.target.id, {
+                method: 'POST',
+            }).catch(error =>{console.log(error)});
+            location.reload('/');
+        } catch (error) {
+            console.log('ERROR: ' + error);
+        }
+    }
+</script> -->
+
+<body>
+    <header>
+        <h1>Update</h1>
+        <form method="POST" id="new-task-form" action="/update/<%= doc._id %>">
+            <input name="task" type="text" id="task-input" placeholder="Wanna update?">
+            <input type="submit" id="task-submit" value="Execute">
+        </form>
+    </header>
+    <main>
+        <section class="task-list">
+            <h2 class="h2-tasks">Tasks</h2>
+            <h2 class="h2-status">Status</h2>
+            <!-- <h2 class="h2-option">Option</h2> -->
+            <div id="tasks">
+                    <div class="task">
+                        <div class="content">
+                            <input type="text" class="text" readonly value='<%= doc.task %>'>
+                        </div>
+                    </div>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>
